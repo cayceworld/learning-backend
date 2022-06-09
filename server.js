@@ -11,11 +11,27 @@ app.set('view engine', '.hbs');
 
 
 
-
+app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, '/public')));
 
+
+
+app.post('/contact/send-message', (req, res) => {
+
+  const allowedExtensions = /(\.png|\.jpg|\.jpeg |\.gif)$/i;
+  const { author, sender, title, message, image } = req.body;
+
+  if (author && sender && title && message && allowedExtensions.exec(image)) {
+    res.render('contact', { isSent: true, image: req.body.image });
+  }
+  else {
+    res.render('contact', { isError: true });
+  }
+
+});
+
 app.get('/hello/:name', (req, res) => {
-  res.render('hello', {  name: req.params.name });
+  res.render('hello', { name: req.params.name });
 });
 
 app.get('/', (req, res) => {

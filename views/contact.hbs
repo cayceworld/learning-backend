@@ -1,3 +1,29 @@
+<h2>Contact me</h2>
+<div>
+  {{#if isSent}}
+  <div class="isSent">The message has been sent! File {{image}} has been saved</div>
+  {{/if}}
+  {{#if isError}}
+  <div class="isError">You can't leave fields empty!</div>
+  {{/if}}
+</div>
 
-    <h2>Contact</h2>
-    <p>Send me an email at programmer@example.com</p>
+
+<form action="/contact/send-message" method="POST">
+  <label>
+    Your name: <input type="text" name="author">
+  </label>
+  <label>
+    Your email: <input type="email" name="sender">
+  </label>
+  <label>
+    Title: <input type="text" name="title">
+  </label>
+  <label>
+    Image: <input type="file" name="image" id="file">
+  </label>
+  <label>
+    Message: <textarea name="message"></textarea>
+  </label>
+  <button type="submit">Send message</button>
+</form>
